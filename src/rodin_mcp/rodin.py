@@ -9,9 +9,12 @@ import asyncio
 
 server = FastMCP('rodin-mcp')
 
-API_KEY = os.getenv(
-    'RODIN_API_KEY', 'g4FQt6KvTGXre2i98GopyXdTdddOnFTBcQF5Hfiu7z5asMm5bqoy7f3L1gFU4fZ0'
-)
+API_KEY = os.getenv('RODIN_API_KEY')
+if not API_KEY:
+    raise RuntimeError(
+        'RODIN_API_KEY is not set. Provide it via the environment '
+        '(e.g. the MCP server config\'s "env" block) before starting the server.'
+    )
 
 def error_handle_response(response):
     try:
